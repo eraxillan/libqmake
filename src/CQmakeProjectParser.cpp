@@ -19,8 +19,6 @@
 
 #include "include/CQmakeProjectParser.h"
 
-using namespace Piket::Source;
-
 //
 // Setup maximum path length
 //

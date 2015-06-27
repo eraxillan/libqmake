@@ -1,7 +1,11 @@
 TARGET = libqmake-1.0
 TEMPLATE = lib
 
-DEFINES += QT_BUILD_QMAKE_LIBRARY
+# Shared library setup for Windows
+win32 {
+	CONFIG  += dll
+	DEFINES += QMAKE_LIBRARY
+}
 
 # Build configuration
 CONFIG += qt thread warn_on plugin
@@ -39,11 +43,14 @@ SOURCES += \
     src/option.cpp \
     src/project.cpp \
     src/property.cpp \
-    src/CQmakeProjectParser.cpp
+    src/CQmakeProjectParser.cpp \
+    src/qmakeprojectparser.cpp
 
 HEADERS += \
     src/cachekeys.h \
     src/option.h \
     src/project.h \
     src/property.h \
-	include/CQmakeProjectParser.h
+	include/CQmakeProjectParser.h \
+    include/qmakeprojectparser.h \
+    include/libqmakeglobal.h
