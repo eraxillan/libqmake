@@ -17,7 +17,7 @@
 #include "option.h"
 #include "cachekeys.h"
 
-#include "include/CQmakeProjectParser.h"
+#include <CQmakeProjectParser.h>
 
 //
 // Setup maximum path length
@@ -51,6 +51,24 @@ bool qmake_setpwd(const QString &p)
 	return false;
 }
 
+/**
+ * @brief Converts file URL (file:///dir/file.ext)
+ * to the file path (/dir/file.ext)
+ * @param _url File URL to convert from
+ * @return Local filesystem path (OS-dependent)
+ */
+static QString
+url2localPath (const QString& _url)
+{
+	QString result = _url;
+#ifdef Q_OS_WIN32
+	result.remove ("file:///");
+#else
+	result.remove ("file://");
+#endif
+	return result;
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 void
@@ -61,9 +79,15 @@ CQmakeProjectParser::init ()
 	//
 	char** argv = (char**) new char* [2];
 	argv[0] = new char [QMAKE_MAX_PATH];
-	strcpy (argv[0], "qmake");
 	argv[1] = new char [QMAKE_MAX_PATH];
+#ifdef Q_CC_MSVC
+	// C4996 fix
+	strcpy_s (argv[0], QMAKE_MAX_PATH, "qmake");
+	strcpy_s (argv[1], QMAKE_MAX_PATH, QFile::encodeName (m_file_name).data ());
+#else
+	strcpy (argv[0], "qmake");
 	strcpy (argv[1], QFile::encodeName (m_file_name).data ());
+#endif
 	Option::init (2, argv);
 	delete[] argv[0];
 	delete[] argv[1];
@@ -189,7 +213,7 @@ CQmakeProjectParser::collectSubdirs (const QString& _base_project, QStringList& 
 		const QString abs_path = QDir::cleanPath (QFileInfo (_base_project).dir ().absoluteFilePath ((*iHeader)));
 		(*iHeader) = QUrl::fromLocalFile (abs_path).toString ();
 
-		Q_ASSERT (QFile::exists ((*iHeader)));
+		Q_ASSERT (QFile::exists (url2localPath (*iHeader)));
 	}
 	for (QStringList::iterator iSrc = sources.begin (); iSrc != sources.end (); ++iSrc)
 	{
@@ -197,7 +221,7 @@ CQmakeProjectParser::collectSubdirs (const QString& _base_project, QStringList& 
 
 		(*iSrc) = QUrl::fromLocalFile (abs_path).toString ();
 
-		Q_ASSERT (QFile::exists ((*iSrc)));
+		Q_ASSERT (QFile::exists (url2localPath (*iSrc)));
 	}
 	m_headers += QSet<QString>::fromList (headers);
 	m_sources += QSet<QString>::fromList (sources);
@@ -233,18 +257,6 @@ CQmakeProjectParser::collectSubdirs (const QString& _base_project, QStringList& 
 		//
 		collectSubdirs (subdir_full, _subprojects);
 	}
-}
-
-static QString
-url2localPath (const QString& _url)
-{
-	QString result = _url;
-#ifdef Q_OS_WIN32
-	result.remove ("file:///");
-#else
-	result.remove ("file://");
-#endif
-	return result;
 }
 
 CQmakeProjectParser::CQmakeProjectParser (const QString& _file_name)

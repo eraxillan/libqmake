@@ -1,6 +1,6 @@
-#include <include/qmakeprojectparser.h>
+#include <qmakeprojectparser.h>
 
-#include <include/CQmakeProjectParser.h>
+#include <CQmakeProjectParser.h>
 
 extern "C" {
 

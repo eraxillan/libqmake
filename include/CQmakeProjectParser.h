@@ -8,7 +8,7 @@
 #ifndef __CQMAKEPROJECTPARSER_H
 #define __CQMAKEPROJECTPARSER_H
 
-#include <include/libqmakeglobal.h>
+#include <libqmakeglobal.h>
 
 #include <QSet>
 #include <QStringList>

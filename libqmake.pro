@@ -39,18 +39,24 @@ target.path = $${PLUGIN_INSTALL_PATH}
 # Install
 INSTALLS += target
 
+INCLUDEPATH += include
+
 SOURCES += \
-    src/option.cpp \
-    src/project.cpp \
-    src/property.cpp \
-    src/CQmakeProjectParser.cpp \
-    src/qmakeprojectparser.cpp
+	src/option.cpp \
+	src/project.cpp \
+	src/property.cpp \
+	src/CQmakeProjectParser.cpp \
+	src/qmakeprojectparser.cpp
 
 HEADERS += \
-    src/cachekeys.h \
-    src/option.h \
-    src/project.h \
-    src/property.h \
+	src/cachekeys.h \
+	src/option.h \
+	src/project.h \
+	src/property.h \
 	include/CQmakeProjectParser.h \
-    include/qmakeprojectparser.h \
-    include/libqmakeglobal.h
+	include/qmakeprojectparser.h \
+	include/libqmakeglobal.h
+
+OTHER_FILES += \
+		README.md \
+		LICENSE

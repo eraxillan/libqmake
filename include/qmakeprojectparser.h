@@ -1,7 +1,7 @@
 #ifndef __QMAKEPROJECTPARSER
 #define __QMAKEPROJECTPARSER
 
-#include <include/libqmakeglobal.h>
+#include <libqmakeglobal.h>
 
 extern "C" {
 /**
