@@ -2004,7 +2004,7 @@ QMakeProject::doProjectExpand(QString func, QList<QStringList> args_list,
 		case E_JOIN: {
 			if(args.count() < 1 || args.count() > 4) {
 				fprintf(stderr, "%s:%d: join(var, glue, before, after) requires four"
-						"arguments.\n", parser.file.toLatin1().constData(), parser.line_no);
+								"arguments.\n", parser.file.toLatin1().constData(), parser.line_no);
 			} else {
 				QString glue, before, after;
 				if(args.count() >= 2)
@@ -2091,7 +2091,7 @@ QMakeProject::doProjectExpand(QString func, QList<QStringList> args_list,
 			}
 			break;  }
 		case E_SYSTEM: {
-			// NOTE: закомментил, т.к. нам нужен только парсинг
+			// NOTE: we need only to parse project file
 			/*if(args.count() < 1 || args.count() > 2) {
 				fprintf(stderr, "%s:%d system(execut) requires one argument.\n",
 						parser.file.toLatin1().constData(), parser.line_no);
@@ -2490,7 +2490,7 @@ QMakeProject::doProjectTest(QString func, QList<QStringList> args_list, QMap<QSt
 
 		case T_SYSTEM:
 			// NOTE: закомментил, т.к. нам нужен только парсинг
-	/*		if(args.count() < 1 || args.count() > 2) {
+			/*		if(args.count() < 1 || args.count() > 2) {
 				fprintf(stderr, "%s:%d: system(exec) requires one argument.\n", parser.file.toLatin1().constData(),
 						parser.line_no);
 				return false;

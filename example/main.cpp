@@ -10,9 +10,9 @@ int main (int argc, char *argv[])
 	QCoreApplication app (argc, argv);
 
 	CQmakeProjectParser parser( QDir::cleanPath (
-								QFileInfo (QDir::currentPath ())
-								.dir ()
-								.absoluteFilePath ("../libqmake/libqmake.pro")));
+									QFileInfo (QDir::currentPath ())
+									.dir ()
+									.absoluteFilePath ("../libqmake/libqmake.pro")));
 	if (!parser.lastError ().isEmpty ())
 	{
 		qDebug() << "ERROR: " << parser.lastError ();

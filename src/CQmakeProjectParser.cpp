@@ -130,7 +130,7 @@ CQmakeProjectParser::parse ()
 		if (!QFile::exists (fn))
 		{
 			m_last_error = QCoreApplication::translate ("Cannot find file: %s.\n", "qmake")
-														.arg (fn.toLatin1().constData());
+					.arg (fn.toLatin1().constData());
 			return;
 		}
 
@@ -152,7 +152,7 @@ CQmakeProjectParser::parse ()
 		{
 			if(!qmake_setpwd(fn.left(di)))
 				m_last_error = QCoreApplication::translate ("Cannot find directory: %s\n", "qmake")
-															.arg (fn.left(di));
+						.arg (fn.left(di));
 			fn = fn.right (fn.length() - di - 1);
 		}
 
@@ -195,7 +195,7 @@ CQmakeProjectParser::collectSubdirs (const QString& _base_project, QStringList& 
 	if(!project.read (_base_project))
 	{
 		m_last_error = QCoreApplication::translate ("Error processing project file: %s\n", "qmake")
-													.arg (_base_project);
+				.arg (_base_project);
 		return;
 	}
 
@@ -248,7 +248,7 @@ CQmakeProjectParser::collectSubdirs (const QString& _base_project, QStringList& 
 		if (!QFile::exists(subdir_full))
 		{
 			m_last_error = QCoreApplication::translate ("Cannot find file: %s.\n", "qmake")
-														.arg (subdir_full);
+					.arg (subdir_full);
 			return;
 		}
 
